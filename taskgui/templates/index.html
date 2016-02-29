@@ -1,0 +1,11 @@
+<!doctype html>
+<title>Hello</title>
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/bootstrap.min.css')}}" />
+<div>
+{{message}}
+</div>
+<div>
+  <form name="form" method="post" action="{{url_for('index')}}">
+    <input type="submit" value="Start a Job" />    
+  </form>
+</div>
