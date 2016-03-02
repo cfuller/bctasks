@@ -33,6 +33,7 @@ BCTask depends on several frameworks and utilities:
     ```
 3. Configure RabbitMQ user, host and permissions
 4. Install python dependencies
+
     ```sh
     $ pip install celery
     $ pip install rabbitmq
