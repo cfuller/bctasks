@@ -30,6 +30,7 @@ BCTask depends on several frameworks and utilities:
     $ tar xzf redis-3.0.7.tar.gz
     $ cd redis-3.0.7
     $ make   
+    $ make install
     ```
 3. Configure RabbitMQ user, host and permissions
 
