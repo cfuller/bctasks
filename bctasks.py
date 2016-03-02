@@ -14,23 +14,25 @@ def download(url, name):
     return name
 
 @app.task
-def writePaths(pathList):
+def stitch(pathList):
   f = open('files/filelist.txt', 'w')
-  print f
   for path in pathList:
+    path = path.replace('files/', '')
     f.write('file ' + path + "\n")
-  return 'files/filelist.txt'
+ 
+  command = [FFMPEG_BIN,
+             '-f', 'concat',
+             '-i', 'files/filelist.txt',
+             '-c', 'copy',
+	     'files/stitched.mp4']
+  try:
+    out = sp.check_output(command, shell=True, stderr=sp.STDOUT)
+    print out
+    return out.output
+  except sp.CalledProcessError as er:
+    print er.output
+    return er.output
 
 @app.task
 def dispatch(files):
-   chain(chord(download.s(f['url'], f['name']) for f in files)(writePaths.s()), stitch.s())
-
-@app.task
-def stitch(input):
-  print input
-  command = [FFMPEG_BIN,
-             '-f', 'concat',
-             '-i', str(input),
-             '-c', 'copy',
-	     'output', 'files/stitched.mp4']
-  sp.call(command)
+   chord(download.s(f['url'], f['name']) for f in files)(stitch.s())
