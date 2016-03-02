@@ -1,0 +1,11 @@
+# Replace with actualy RabbitMQ (or other broker) URL
+BROKER_URL = 'amqp://guest@localhost:5672//'
+
+# Replace with actual redis (or other backend URL)
+CELERY_RESULT_BACKEND = 'redis://127.0.0.1'
+
+# Update with broker API endpoint for Flower if  using Flower. See  http://flower.readthedocs.org/en/latest/config.html
+broker_api = 'http://guest:guest@localhost:15672/api/'
+
+CELERY_TIMEZONE = 'US/Eastern'
+CELERY_ENABLE_UTC = True
