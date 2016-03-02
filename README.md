@@ -32,7 +32,16 @@ BCTask depends on several frameworks and utilities:
     $ make   
     ```
 3. Configure RabbitMQ user, host and permissions
+
+    ```sh
+    $ sudo rabbitmqctl add_user myuser mypassword
+    $ sudo rabbitmqctl add_vhost myvhost
+    $ sudo rabbitmqctl set_user_tags myuser mytag
+    $ sudo rabbitmqctl set_permissions -p myvhost myuser ".*" ".*" ".*"
+    ```
+
 4. Install python dependencies
+    ```
 
     ```sh
     $ pip install celery
