@@ -42,12 +42,11 @@ BCTask depends on several frameworks and utilities:
     ```
 
 4. Install python dependencies
-    ```
 
     ```sh
     $ pip install celery
-    $ pip install rabbitmq
     $ pip install redis
+    $ pip install flask
     ```
     Optionally, you can also
     ```sh
@@ -55,7 +54,16 @@ BCTask depends on several frameworks and utilities:
     $ pip install jobtastic
     ```
 5. Create a celeryconfig.py file by copying the celeryconfig.default and updating the appropriate values as instructed in the file
-
+6. Clone github repo and navigate to bctasks directory
+7. Run the celery server
+```sh
+$ celery -A tasks worker --loglevel=info &
+```
+8. Start the Flask server
+```sh
+$ cd taskgui
+$ python taskgui.py
+```
 ### Running in Production
 There are several things you'll want to do to run this setup in a prodcution environment, most importantly, daemonizing Celery and proxying the Flask web app. 
 - [Daemonizing Celery](http://docs.celeryproject.org/en/latest/tutorials/daemonizing.html)
