@@ -63,6 +63,7 @@ $ celery -A tasks worker --loglevel=info &
 ```sh
 $ cd taskgui
 $ python taskgui.py
+# http://localhost:5000
 ```
 ### Running in Production
 There are several things you'll want to do to run this setup in a prodcution environment, most importantly, daemonizing Celery and proxying the Flask web app. 
