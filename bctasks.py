@@ -3,6 +3,7 @@ from celery import chord
 from celery import chain
 import urllib
 import subprocess as sp
+from time import sleep
 FFMPEG_BIN = "/usr/bin/ffmpeg"
 
 app = Celery('bctasks')
@@ -36,3 +37,24 @@ def stitch(pathList):
 @app.task
 def dispatch(files):
    chord(download.s(f['url'], f['name']) for f in files)(stitch.s())
+
+@app.task(bind=True)
+def LotsOfDivisionTask(self,numbers):
+    numerators = numbers[0]
+    denominators = numbers[1]
+
+    results = []
+    divisions_to_do = len(numerators)
+    # Only actually update the progress in the backend every 10 operations
+    update_frequency = 10
+    for count, divisors in enumerate(zip(numerators, denominators)):
+        numerator, denominator = divisors
+        results.append(numerator / denominator)
+        # Let's let everyone know how we're doing
+        self.update_state(state='PROGRESS',
+                      meta={'current': count, 'total': divisions_to_do,
+                            'status': 'In progress'})
+        # Let's pretend that we're using the computers that landed us on the moon
+        sleep(0.1)
+
+    return results

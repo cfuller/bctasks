@@ -1,2 +1,5 @@
 *.pyc
+*.rdb
 celeryconfig.py
+taskgui/flaskconfig.py
+.idea
