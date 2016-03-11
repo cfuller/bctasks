@@ -3,3 +3,5 @@
 celeryconfig.py
 taskgui/flaskconfig.py
 .idea
+.DS_STORE
+*.DS_STORE
